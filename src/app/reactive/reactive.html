@@ -1,0 +1,59 @@
+
+<mat-card class="card">
+  <h2>Inscription - Reactive Forms</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nom Complet</mat-label>
+      <input matInput formControlName="fullname" />
+      @if (fullname.touched && fullname.hasError('required')) {
+        <mat-error>Le nom est obligatoire.</mat-error>
+      } @else if (fullname.touched && fullname.hasError('minlength')) {
+        <mat-error>Minimum 3 caractères.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" formControlName="age" />
+      @if (age.touched && age.hasError('required')) {
+        <mat-error>L'âge est obligatoire.</mat-error>
+      } @else if (age.touched && age.hasError('min')) {
+        <mat-error>Vous devez avoir au moins 18 ans.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Pays</mat-label>
+      <mat-select formControlName="country">
+        @for (c of countries; track c.value) {
+          <mat-option [value]="c.value">{{ c.label }}</mat-option>
+        }
+      </mat-select>
+      @if (country.touched && country.hasError('required')) {
+        <mat-error>Veuillez choisir un pays.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+      @if (email.touched && email.hasError('required')) {
+        <mat-error>L'email est obligatoire.</mat-error>
+      } @else if (email.touched && email.hasError('email')) {
+        <mat-error>Format d'email invalide.</mat-error>
+      }
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit"
+            [disabled]="form.invalid">
+      S'inscrire
+    </button>
+  </form>
+
+  @if (submitted) {
+    <div class="success">Inscription réussie !</div>
+    <pre class="success">{{ result | json }}</pre>
+  }
+</mat-card>

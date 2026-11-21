@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { TemplateDriven } from './template-driven/template-driven';
+import { Reactive } from './reactive/reactive';
 
 @Component({
-  imports: [],
   selector: 'app-root',
-  styleUrl: './app.css',
+  imports: [TemplateDriven, Reactive],
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('tp1-forms');
-}
+export class App {}
